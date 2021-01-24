@@ -22,6 +22,47 @@ DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmi
 --extra-config=apiserver.authorization-mode=Node,RBAC
 ```
 
+На 23.01.2021 лабораторка успешно выполняется при следующих версиях
+versions
+- minikube: 1.15.1
+- kubernetes 1.19.0
+- jaeger 2.17.0
+- kube-prometheus-stack 9.4.4
+- istioctl 1.8.0
+- kiali 1.27.0
+
+Установка панели [Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+
+Получить токен для доступа к панели
+```
+$TOKEN=((kubectl -n kube-system describe secret default | Select-String "token:") -split " +")[1]
+```
+
+Установка панели
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+kubectl proxy
+```
+
+Адрес панели
+```
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+```
+
+Для Kubernetes Docker-Desktop есть возможность поменять настройки kube-apiserver и других параметров манифестов kubernetes
+As for the reconfiguration of kube-apiserver.yaml with Docker Desktop
+```shell
+docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh
+```
+
+Above command will allow you to run 
+```shell
+$ vi /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+The Pod running kubeapi-server will be restarted with new parameters.
+
+---
+
 Операции будут совершаться с помощью утилиты `kubectl`
 
 ## Содержание

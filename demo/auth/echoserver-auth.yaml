@@ -38,6 +38,6 @@ spec:
                 if not is_authenticated then
                   request:respond({[":status"] = 403}, "")
                 else
-                  request:headers():replace("X-Service", service)
+                  request:headers():replace("X-Service", "service")
                 end
               end

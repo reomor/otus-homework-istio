@@ -1,9 +1,9 @@
 # Создать Namespace
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: istio-system
+#---
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: istio-system
 
 # Создать CRD, использующийся Istio operator'ом, чтобы развернуть Istio
 ---
@@ -20,11 +20,11 @@ spec:
     istiod_remote: # Настройки, при которых уровень управления установлен вне кластера
       enabled: false
 
-    policy: # Управление авторизацией, аудит с помощью Mixer, deprecated
-      enabled: false
+#    policy: # Управление авторизацией, аудит с помощью Mixer, deprecated
+#      enabled: false
 
-    telemetry: # Телеметрия с помощью Mixer, deprecated
-      enabled: false
+#    telemetry: # Телеметрия с помощью Mixer, deprecated
+#      enabled: false
 
     ingressGateways: # Общая точка для входа трафика в Service mesh
       - name: istio-ingressgateway
@@ -60,7 +60,7 @@ spec:
         concurrency: 1 # Количество воркеров
 
     global:
-      controlPlaneSecurityEnabled: false
+#      controlPlaneSecurityEnabled: false
       proxy:
         resources:
           requests:
@@ -94,8 +94,8 @@ spec:
 
     telemetry:
       enabled: true
-      v1:
-        enabled: false
+#      v1:
+#        enabled: false
       v2:
         enabled: true
         prometheus:
